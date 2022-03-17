@@ -27,7 +27,6 @@ namespace Notepad
         public MainWindow()
         {
             InitializeComponent();
-            textField.CanUndo = true;
             FileName = "Безымянный";
             Title = FileName + " " + "-" + " " + "Блокнот";
 
@@ -50,21 +49,61 @@ namespace Notepad
             if (isChangesSaved == false)
             {
                 var result = MessageBox.Show("Сохранить изменения?", "Изменения не сохранены", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes) SaveOpen.Save(textField.Document.ToString());
+                if (result == MessageBoxResult.Yes) SaveOpen.Save(textField.Text);
             }
             if (isSaved == false)
             {
                 var result = MessageBox.Show("Документ не сохранён. Сохранить документ?", "Файл не сохранен", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes) SaveOpen.SaveAs(textField., out bool issaved, out string name);
-                textField.SaveFile();
+                if (result == MessageBoxResult.Yes) SaveOpen.SaveAs(textField.Text, out bool issaved, out string name);
+
             }
-        
+
 
         }
 
         private void textField_TextChanged(object sender, TextChangedEventArgs e)
         {
             isChangesSaved = false;
+        }
+
+        private void SaveButon_Click(object sender, RoutedEventArgs e)
+        {
+            if (textField.Text != null)
+            {
+                if (isSaved == false) SaveOpen.Save(textField.Text);
+                else
+                {
+                    SaveOpen.SaveAs(textField.Text, out bool IsSaved, out string name);
+                }
+                isSaved = true;
+                isChangesSaved = true;
+            }
+            
+
+        }
+
+        private void SaveAsButton_click(object sender, RoutedEventArgs e)
+        {
+            if (textField.Text != null)
+            {
+                SaveOpen.Save(textField.Text);
+            }
+            isSaved = true;
+            isChangesSaved = true;
+        }
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            SaveOpen.Open(out string text, out string name);
+            textField.Text = text;
+            FileName = name;
+            Title = FileName + " " + "-" + " " + "Блокнот";
+            isSaved = true;
+            isChangesSaved = true;
+        }
+
+        private void undoButton_Click(object sender, RoutedEventArgs e)
+        {
+            textField.Undo();
         }
     }
 }
