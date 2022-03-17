@@ -8,6 +8,7 @@ namespace Notepad
 {
     class SaveOpen
     {
+        private static string Path { get; set; }
         public static void SaveAs(string text, out bool issaved, out string name)
         {
             issaved = false;
@@ -25,6 +26,7 @@ namespace Notepad
                     _stream.Close();
                 issaved = true;
                 name = dialog.SafeFileName ;
+                Path = dialog.FileName;
             }
 
 
@@ -34,7 +36,13 @@ namespace Notepad
         }
         public static void Save(string text)
         {
-
+            StreamWriter _stream = new StreamWriter(Path);
+            _stream.WriteLine();
+            _stream.Write(text);
+            // Code to write the stream goes here.
+            _stream.Close();
+            issaved = true;
+            name = dialog.SafeFileName;
         }
         public static void Open(out string text, out string name)
         {

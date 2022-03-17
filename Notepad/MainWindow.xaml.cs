@@ -74,6 +74,7 @@ namespace Notepad
                 else
                 {
                     SaveOpen.SaveAs(textField.Text, out bool IsSaved, out string name);
+                    FileName = name;
                 }
                 isSaved = true;
                 isChangesSaved = true;
@@ -86,7 +87,8 @@ namespace Notepad
         {
             if (textField.Text != null)
             {
-                SaveOpen.Save(textField.Text);
+                SaveOpen.SaveAs(textField.Text, out bool IsSaved, out string name);
+                FileName = name;
             }
             isSaved = true;
             isChangesSaved = true;
