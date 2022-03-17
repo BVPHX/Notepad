@@ -1,0 +1,30 @@
+﻿<Window x:Class="Notepad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Notepad"
+        mc:Ignorable="d"
+        Title="MainWindow" Closing="Window_Closing" Height="450" Width="800">
+    <Grid>
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить"></MenuItem>
+                <MenuItem Header="Сохранить как..."></MenuItem>
+                <MenuItem Header="Открыть"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Выход"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Вид">
+                <MenuItem x:Name="statBatItem" Header="Строка состояния" Click="StatusBarOnOff" IsCheckable="True"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Справка"></MenuItem>
+        </Menu>
+        <RichTextBox x:Name="textField" CanUndo  TextChanged="textField_TextChanged" Margin="0,18,0,0" ScrollViewer.CanContentScroll="True"></RichTextBox>
+        <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="sbi1" Content="dsad"></StatusBarItem>
+            <Separator></Separator>
+            <StatusBarItem x:Name="sbi2"></StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
