@@ -9,19 +9,24 @@
     <Grid>
         <Menu VerticalAlignment="Top">
             <MenuItem Header="Файл">
+                <MenuItem Header="Новый документ" Click="NewDoc_Click"></MenuItem>
                 <MenuItem Header="Сохранить" Click="SaveButon_Click"></MenuItem>
                 <MenuItem Header="Сохранить как..." Click="SaveAsButton_click"></MenuItem>
                 <MenuItem Header="Открыть" Click="OpenFile_Click"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Выход"></MenuItem>
+                <MenuItem Header="Выход" Click="Exit"></MenuItem>
             </MenuItem>
             <MenuItem Header="Вид">
-                <MenuItem x:Name="statBatItem" Header="Строка состояния" Click="StatusBarOnOff" IsCheckable="True"></MenuItem>
+                <MenuItem x:Name="statBatItem" Header="Строка состояния" IsChecked="True" Click="StatusBarOnOff" IsCheckable="True"></MenuItem>
             </MenuItem>
             <MenuItem Header="Справка"></MenuItem>
         </Menu>
-        <ToolBar VerticalAlignment="Top" Height="24" Margin="0,21,0,0">
+        <ToolBar x:Name="mainToolBar" VerticalAlignment="Top" Height="24" Margin="0,21,0,0">
             <Button x:Name="undoButton" Click="undoButton_Click" Background="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="29"></Button>
+            <Separator/>
+            <TextBox x:Name="tbFontSize" Width="43"/>
+            <Button Content="+" FontSize="8" Height="16"   Width="15"/>
+            <Button Content="-" FontSize="8"  Height="16" Width="15"/>
             <Separator/>
         </ToolBar>
         <TextBox x:Name="textField"  TextChanged="textField_TextChanged" Margin="0,45,0,0" ScrollViewer.CanContentScroll="True"></TextBox>

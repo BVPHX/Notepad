@@ -29,6 +29,7 @@ namespace Notepad
             InitializeComponent();
             FileName = "Безымянный";
             Title = FileName + " " + "-" + " " + "Блокнот";
+            tbFontSize.Text = textField.FontSize.ToString();
 
         }
 
@@ -46,18 +47,20 @@ namespace Notepad
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (isChangesSaved == false)
+            if (textField.Text != null || textField.Text != string.Empty)
             {
-                var result = MessageBox.Show("Сохранить изменения?", "Изменения не сохранены", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes) SaveOpen.Save(textField.Text);
-            }
-            if (isSaved == false)
-            {
-                var result = MessageBox.Show("Документ не сохранён. Сохранить документ?", "Файл не сохранен", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes) SaveOpen.SaveAs(textField.Text, out bool issaved, out string name);
+                if (isChangesSaved == false)
+                {
+                    var result = MessageBox.Show("Сохранить изменения?", "Изменения не сохранены", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes) SaveOpen.Save(textField.Text);
+                }
+                if (isSaved == false)
+                {
+                    var result = MessageBox.Show("Документ не сохранён. Сохранить документ?", "Файл не сохранен", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes) SaveOpen.SaveAs(textField.Text, out bool issaved, out string name);
 
+                }
             }
-
 
         }
 
@@ -70,16 +73,19 @@ namespace Notepad
         {
             if (textField.Text != null)
             {
-                if (isSaved == false) SaveOpen.Save(textField.Text);
-                else
+                if (isSaved == false)
                 {
                     SaveOpen.SaveAs(textField.Text, out bool IsSaved, out string name);
-                    FileName = name;
+                    Title = name + " " + "-" + " " + "Блокнот";
+                }
+                else
+                {
+                    SaveOpen.Save(textField.Text);
                 }
                 isSaved = true;
                 isChangesSaved = true;
             }
-            
+
 
         }
 
@@ -106,6 +112,23 @@ namespace Notepad
         private void undoButton_Click(object sender, RoutedEventArgs e)
         {
             textField.Undo();
+        }
+
+        private void NewDoc_Click(object sender, RoutedEventArgs e)
+        {
+            SaveOpen.Create(out string _name);
+            textField.Text = string.Empty;
+            Title = _name + " " + "-" + " " + "Блокнот";
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Font_selection(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

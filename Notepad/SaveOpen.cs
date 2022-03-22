@@ -20,10 +20,9 @@ namespace Notepad
             if (dialog.ShowDialog() == true)
             {
                 StreamWriter _stream = new StreamWriter(dialog.FileName);
-                _stream.WriteLine(dialog.SafeFileName.Substring(0, dialog.SafeFileName.IndexOf(".")));
                 _stream.Write(text);
-                    // Code to write the stream goes here.
-                    _stream.Close();
+                // Code to write the stream goes here.
+                _stream.Close();
                 issaved = true;
                 name = dialog.SafeFileName ;
                 Path = dialog.FileName;
@@ -37,12 +36,8 @@ namespace Notepad
         public static void Save(string text)
         {
             StreamWriter _stream = new StreamWriter(Path);
-            _stream.WriteLine();
             _stream.Write(text);
-            // Code to write the stream goes here.
             _stream.Close();
-            issaved = true;
-            name = dialog.SafeFileName;
         }
         public static void Open(out string text, out string name)
         {
@@ -55,11 +50,27 @@ namespace Notepad
             if (dialog.ShowDialog() == true)
             {
                 StreamReader _stream = new StreamReader(dialog.FileName);
-                name = _stream.ReadLine();
                 text = _stream.ReadToEnd();
-                // Code to write the stream goes here.
+                name = dialog.SafeFileName.Substring(0, dialog.SafeFileName.IndexOf("."));
+                Path = dialog.FileName;
                 _stream.Close();
             }
+        }
+        public static void Create(out string name)
+        {
+            name = string.Empty;
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Текстовые документы (*.rtf)|*.rtf|Текстовый документ (*.rtf*)|*.rtf*";
+            dialog.FilterIndex = 2;
+            dialog.RestoreDirectory = true;
+            if (dialog.ShowDialog() == true)
+            {
+                StreamWriter _stream = new StreamWriter(dialog.FileName);
+                _stream.Close();
+                Path = dialog.FileName;
+                name = dialog.SafeFileName;
+            }
+
         }
     }
 }
