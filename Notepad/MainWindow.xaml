@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notepad"
         mc:Ignorable="d"
-        Title="MainWindow" Closing="Window_Closing" Height="450" Width="800">
+        Title="MainWindow" MinHeight="200" MinWidth="300" Closing="Window_Closing" Height="450" Width="800">
     <Grid>
         <Menu VerticalAlignment="Top">
             <MenuItem Header="Файл">
@@ -19,19 +19,19 @@
             <MenuItem Header="Вид">
                 <MenuItem x:Name="statBatItem" Header="Строка состояния" IsChecked="True" Click="StatusBarOnOff" IsCheckable="True"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Справка"></MenuItem>
+            <MenuItem Header="Справка" Click="InfoButton"></MenuItem>
         </Menu>
         <ToolBar x:Name="mainToolBar" VerticalAlignment="Top" Height="24" Margin="0,21,0,0">
             <Button x:Name="undoButton" Click="undoButton_Click" Background="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="29"></Button>
             <Separator/>
             <TextBox x:Name="tbFontSize" Width="43"/>
-            <Button Content="+" FontSize="8" Height="16"   Width="15"/>
-            <Button Content="-" FontSize="8"  Height="16" Width="15"/>
+            <Button Content="+" FontSize="8" Height="16" Click="AddFontSize_ButtonClick"  Width="15"/>
+            <Button Content="-" FontSize="8" Click="Button_Click_1" Height="16" Width="15"/>
             <Separator/>
         </ToolBar>
-        <TextBox x:Name="textField"  TextChanged="textField_TextChanged" Margin="0,45,0,0" ScrollViewer.CanContentScroll="True"></TextBox>
+        <TextBox x:Name="textField" AcceptsReturn="True" SelectionChanged="textField_SelectionChanged" AcceptsTab="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"  TextChanged="textField_TextChanged" Margin="0,45,0,0" ScrollViewer.CanContentScroll="True"></TextBox>
         <StatusBar x:Name="statusBar" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="sbi1" Content="dsad"></StatusBarItem>
+            <StatusBarItem x:Name="sbi1" Content=""></StatusBarItem>
             <Separator></Separator>
             <StatusBarItem x:Name="sbi2"></StatusBarItem>
         </StatusBar>

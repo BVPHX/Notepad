@@ -33,12 +33,6 @@ namespace Notepad
 
         }
 
-
-
-        private void MenuItem_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void StatusBarOnOff(object sender, RoutedEventArgs e)
         {
             if (statBatItem.IsChecked == true) statusBar.Visibility = Visibility.Visible;
@@ -49,17 +43,22 @@ namespace Notepad
         {
             if (textField.Text != null || textField.Text != string.Empty)
             {
-                if (isChangesSaved == false)
+                if (isSaved == false)
+                {
+                    var result = MessageBox.Show("Документ не сохранён. Сохранить документ?", "Файл не сохранен", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        SaveOpen.SaveAs(textField.Text, out bool issaved, out string name);
+                        isChangesSaved = true;
+                    }
+
+                }
+                if (isChangesSaved == false && isSaved == true)
                 {
                     var result = MessageBox.Show("Сохранить изменения?", "Изменения не сохранены", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes) SaveOpen.Save(textField.Text);
                 }
-                if (isSaved == false)
-                {
-                    var result = MessageBox.Show("Документ не сохранён. Сохранить документ?", "Файл не сохранен", MessageBoxButton.YesNo);
-                    if (result == MessageBoxResult.Yes) SaveOpen.SaveAs(textField.Text, out bool issaved, out string name);
 
-                }
             }
 
         }
@@ -67,6 +66,7 @@ namespace Notepad
         private void textField_TextChanged(object sender, TextChangedEventArgs e)
         {
             isChangesSaved = false;
+
         }
 
         private void SaveButon_Click(object sender, RoutedEventArgs e)
@@ -118,7 +118,7 @@ namespace Notepad
         {
             SaveOpen.Create(out string _name);
             textField.Text = string.Empty;
-            Title = _name + " " + "-" + " " + "Блокнот";
+            Title = _name+ " - " + "Блокнот";
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -126,9 +126,27 @@ namespace Notepad
             Close();
         }
 
-        private void Font_selection(object sender, SelectionChangedEventArgs e)
-        {
 
+        private void AddFontSize_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            textField.FontSize++;
+            tbFontSize.Text = textField.FontSize.ToString();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            textField.FontSize--;
+            tbFontSize.Text = textField.FontSize.ToString();
+        }
+
+        private void textField_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            sbi1.Content = "Выделено символов:" + textField.SelectionLength;
+        }
+
+        private void InfoButton(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Разработчик: Шестаков Артем\nГруппа: ИСП-31\n");
         }
     }
 }
